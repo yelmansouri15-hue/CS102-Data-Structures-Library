@@ -5,6 +5,9 @@ class ArrayList:
         self.a = numpy.empty(1, dtype=object)
         self.n = 0
 
+    def clear(self):
+        self.__init__()
+
     def error(self, i):
         if i < 0 or i >= self.n : raise IndexError
 
@@ -19,7 +22,7 @@ class ArrayList:
         return y
 
     def add(self, i, x):
-        if i < 0 or i >= self.n : raise IndexError
+        if i < 0 or i > self.n : raise IndexError
         if self.n == len(self.a) : self.resize()
         self.a[i + 1:self.n + 1] = self.a[i:self.n]
         self.a[i] = x
