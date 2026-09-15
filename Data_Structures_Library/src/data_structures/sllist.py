@@ -61,3 +61,18 @@ class SLList:
         self.n += 1
         return True
     #
+
+    def get(self, i):
+        if i < 0 or i >= self.n : raise IndexError
+
+        node = self.head
+        for _ in range(i):
+            node = node.next
+
+        return node
+
+    def set(self, i, x):
+        node = self.get(i)
+        y = node.x
+        node.x = x
+        return y
