@@ -45,3 +45,19 @@ class SLList:
         self.tail = node
         self.n += 1
         return True
+
+# Queue operations (FIFO); time complexity: O(1)
+
+    def _remove(self):
+        return self.pop()
+    
+    def _add(self, x):
+        node = self.new_node(x)
+        if self.n == 0:
+            self.head = node
+        else:
+            self.tail.next = node
+        self.tail = node
+        self.n += 1
+        return True
+    #
