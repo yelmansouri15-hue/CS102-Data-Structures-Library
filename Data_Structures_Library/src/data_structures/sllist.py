@@ -10,8 +10,15 @@ class SLList:
         self.head = None
         self.tail = None
 
-    def new_node(x):
+    def new_node(self, x):
         return SLList.Node(x)
+
+    def clear(self):
+        self.__init__()
+    
+    # Handles invalid index
+    def error(self, i):
+        if i < 0 or i >= self.n : raise IndexError
 
     # Stack operations (LIFO); time complexity: O(1)
     
@@ -51,7 +58,7 @@ class SLList:
 
     # Time complexity: O(n)
     def get(self, i):
-        if i < 0 or i >= self.n : raise IndexError
+        self.error(i)
 
         node = self.head
         for _ in range(i):
@@ -68,7 +75,7 @@ class SLList:
 
     # Time complexity: O(n)
     def add(self, i, x):
-        if i < 0 or i >= self.n : raise IndexError
+        if i < 0 or i > self.n : raise IndexError
         if i == 0: 
             self.push(x)
             return True
@@ -85,7 +92,7 @@ class SLList:
 
     # Time complexity: O(n)
     def remove(self, i):
-        if i < 0 or i >= self.n : raise IndexError
+        self.error(i)
         if i == 0: return self.pop()
 
         u = self.head
@@ -96,4 +103,14 @@ class SLList:
         u.next = u.next.next   
         self.n -= 1
         return x
+
+    def show(self):
+        s = "["
+        u = self.head
+        while u is not None:
+            s += "%r" % u.x
+            u = u.next
+            if u is not None:
+                s += ","
+        return s + "]"
     
