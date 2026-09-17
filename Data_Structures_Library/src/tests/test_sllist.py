@@ -57,7 +57,7 @@ while True:
 
                 element_set = test.set(index, element)
 
-                print(f"{element_set} set in the index number {index}")
+                print(f"{element} set in the index number {index}, replacing {element_set}")
                 show_array()
 
             except IndexError:
