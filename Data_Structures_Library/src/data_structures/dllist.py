@@ -41,3 +41,30 @@ class DLList:
         y = node.x
         node.x = x
         return y
+
+    def addBefore(self, u, x):
+        node = self.new_node(x)
+        node.prev = u.prev
+        node.next = u
+        node.next.prev = node
+        node.prev.next = node
+        self.n += 1
+
+        return node
+
+    def add(self, i, x):
+        if i < 0 or i > self.n : raise IndexError
+        self.addBefore(self.getNode(i), x)
+        return True
+
+    def _remove(self, u):
+        u.next.prev = u.prev
+        u.prev.next = u.next
+        self.n -= 1
+
+    def remove(self, i):
+        self.error()
+        node = self.get(i)
+        self._remove(node)
+        return node.x
+    
