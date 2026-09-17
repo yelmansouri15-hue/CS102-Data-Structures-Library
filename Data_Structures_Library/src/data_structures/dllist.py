@@ -22,19 +22,22 @@ class DLList:
     def error(self, i):
         if i < 0 or i >= self.n : raise IndexError
 
+    # ALL time complexity: O(1 + min{i, n-i})
+
     def get(self, i):
         self.error(i)
 
         if i < self.n/2:
             node = self.dummy.next
-            for _ in range (i):
+            for _ in range (i):  # O(i)
                 node = node.next
 
         node = self.dummy
-        for _ in range (self.n,i,-1):
+        for _ in range (self.n,i,-1):  # O(n-1)
             node = node.prev
 
-        return node
+        # The worst case is min{i, n-1}: O(1 + min{i, n-1})
+        return node.x
 
     def set(self, i, x):
         node = self.get(i)
@@ -53,8 +56,17 @@ class DLList:
         return node
 
     def add(self, i, x):
+        if i == self.n:
+            node = self.new_node(x)
+            node.prev = self.dummy.prev
+            node.next = self.dummy
+            self.dummy.prev = node
+            node.prev.next = node
+            self.n += 1
+            return True
+
         if i < 0 or i > self.n : raise IndexError
-        self.addBefore(self.getNode(i), x)
+        self.addBefore(self.get(i), x)
         return True
 
     def _remove(self, u):
@@ -67,4 +79,15 @@ class DLList:
         node = self.get(i)
         self._remove(node)
         return node.x
+
+    def show(self):
+        s = "["
+        u = self.dummy.next
+        while u != self.dummy:
+            s += "%r" % u.x
+            u = u.next
+            if u != self.dummy:
+                s += ","
+        return s + "]"
+            
     
