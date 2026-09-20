@@ -31,16 +31,25 @@ class DLList:
             node = self.dummy.next
             for _ in range (i):  # O(i)
                 node = node.next
-
-        node = self.dummy
-        for _ in range (self.n,i,-1):  # O(n-1)
-            node = node.prev
+        else:
+            node = self.dummy
+            for _ in range (self.n,i,-1):  # O(n-1)
+                node = node.prev
 
         # The worst case is min{i, n-1}: O(1 + min{i, n-1})
         return node.x
 
     def set(self, i, x):
-        node = self.get(i)
+        self.error(i)
+
+        if i < self.n/2:
+            node = self.dummy.next
+            for _ in range (i):  # O(i)
+                node = node.next
+        else:
+            node = self.dummy
+            for _ in range (self.n,i,-1):  # O(n-1)
+                node = node.prev        
         y = node.x
         node.x = x
         return y
@@ -75,7 +84,7 @@ class DLList:
         self.n -= 1
 
     def remove(self, i):
-        self.error()
+        self.error(i)
         node = self.get(i)
         self._remove(node)
         return node.x
